@@ -1,0 +1,74 @@
+version : "2.1"
+
+services:
+
+  eureka:
+
+    image: discovery-service
+
+    container_name: eureka
+
+    build:
+
+      context: .
+
+      dockerfile: ./discovery-service/Dockerfile
+
+    hostname: eureka
+
+    ports:
+
+      - "8761:8761"
+
+    networks:
+
+      - microservicesnet
+
+
+
+  zuul:
+
+    image: gateway-service:0.0.1-SNAPSHOT
+
+    container_name: zuul
+
+    build:
+
+      context: .
+
+      dockerfile: ./gateway-service/Dockerfile
+
+    ports:
+
+      - "8765:8765"
+
+    networks:
+
+      - microservicesnet
+
+
+  account:
+
+    image: account-service:0.0.1-SNAPSHOT
+
+    container_name: account-service
+
+    build:
+
+      context: .
+
+      dockerfile: ./account-service/Dockerfile
+
+    ports:
+
+      - "8000:8000"
+
+    networks:
+
+      - microservicesnet
+
+
+
+networks:
+
+  microservicesnet:
