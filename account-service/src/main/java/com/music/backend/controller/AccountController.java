@@ -1,19 +1,21 @@
 package com.music.backend.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.music.backend.service.AccountService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AccountController {
 
+    @Autowired
+    private AccountService accountService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home() {
-        // This is useful for debugging
-        // When having multiple instance of gallery service running at different ports.
-        // We load balance among them, and display which instance received the request.
-        return "Hello from Gallery Service running at port: ${server.port}";
+    @GetMapping(value = "/")
+    public ResponseEntity<?> getAll() {
+        return new ResponseEntity<>(accountService.getAll(), HttpStatus.OK);
     }
 
 }

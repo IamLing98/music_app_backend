@@ -17,6 +17,17 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/album-service" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/Java/gradle-6.8.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/album-service" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/auth-service" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/Java/gradle-6.8.1" />
         <option name="modules">
@@ -28,11 +39,11 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/config-server" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/core-service" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/Java/gradle-6.8.1" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/config-server" />
+            <option value="$PROJECT_DIR$/core-service" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />
@@ -55,6 +66,17 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/gateway-service" />
+          </set>
+        </option>
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/rabbitmq" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/Java/gradle-6.8.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/rabbitmq" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />
