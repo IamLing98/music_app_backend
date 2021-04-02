@@ -1,12 +1,10 @@
 package com.music.backend.service;
 
 import com.music.backend.model.Account;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
-
-@Transactional
 public interface AccountService {
 
     Account getAccountById(Long id);
@@ -14,5 +12,7 @@ public interface AccountService {
     Account getAccountByEmail(String email);
 
     List<Account> getAll();
+
+    UserDetails loadUserById(Long id);
 
 }

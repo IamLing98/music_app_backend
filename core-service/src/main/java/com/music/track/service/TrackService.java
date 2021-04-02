@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface TrackService {
 
-    public List<Track> getSeveralTracks(List<Long> ids, String market);
+    public List<Track> getSeveralTracks(List<Long> ids);
 
-    public Track getATrack(Long id, String market);
+    public Track getATrack(Long id);
 
 }

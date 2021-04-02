@@ -1,12 +1,15 @@
 package com.music.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.music.backend.base.AuthProvider;
 import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+
 
 @Entity
 @Data
@@ -26,6 +29,10 @@ public class Account implements Serializable {
     @Column(name = "email", unique = true)
     private String email;
 
+    @Column(name = "name")
+    private String name;
+
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
@@ -47,5 +54,11 @@ public class Account implements Serializable {
     })
     @JsonIgnoreProperties({"hibernateLazyInitializer", "accounts"})
     private Plan plan;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private AuthProvider provider;
+
+    private String providerId;
 
 }

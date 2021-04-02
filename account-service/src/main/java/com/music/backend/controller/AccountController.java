@@ -13,7 +13,7 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/oauth2/getAll")
     public ResponseEntity<?> getAll() {
         return new ResponseEntity<>(accountService.getAll(), HttpStatus.OK);
     }
