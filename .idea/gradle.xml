@@ -4,13 +4,12 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <option name="disableWrapperSourceDistributionNotification" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/account-service" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/auth-service" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../../../Program Files/Java/gradle-6.8.1" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/account-service" />
+            <option value="$PROJECT_DIR$/auth-service" />
           </set>
         </option>
         <option name="useQualifiedModuleNames" value="true" />

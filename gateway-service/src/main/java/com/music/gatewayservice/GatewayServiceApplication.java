@@ -1,10 +1,13 @@
 package com.music.gatewayservice;
 
+import com.music.gatewayservice.util.TokenFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -18,6 +21,11 @@ public class GatewayServiceApplication {
     }
 
     @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
+    @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
@@ -26,5 +34,11 @@ public class GatewayServiceApplication {
             }
         };
     }
+
+    @Bean
+    public TokenFilter tokenFilter() {
+        return new TokenFilter();
+    }
+
 
 }
