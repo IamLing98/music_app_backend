@@ -36,6 +36,9 @@ public class Account implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "email_verified", nullable = false)
+    private Boolean emailVerified = false;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)

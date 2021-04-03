@@ -5,9 +5,14 @@ import com.music.backend.base.userdetails.OAuth2Details;
 import com.music.backend.base.userdetails.UserDetailsPrincipal;
 import com.music.backend.exception.OAuth2AuthenticationProcessingException;
 import com.music.backend.model.Account;
+import com.music.backend.model.ConfirmToken;
 import com.music.backend.repository.AccountRepository;
+import com.music.backend.repository.ConfirmTokenRepository;
+import com.music.backend.service.EmailService;
 import com.music.backend.util.OAuth2UserInfoFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,8 +25,18 @@ import org.springframework.util.ObjectUtils;
 
 @Service
 public class OAuth2ServiceImpl extends DefaultOAuth2UserService {
+
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private ConfirmTokenRepository confirmTokenRepository;
+
+    @Autowired
+    ApplicationEventPublisher applicationEventPublisher;
+
+    @Autowired
+    EmailService emailService;
 
     @Transactional
     @Override
@@ -36,6 +51,33 @@ public class OAuth2ServiceImpl extends DefaultOAuth2UserService {
             // Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
             throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
         }
+    }
+
+    private Account registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2Details oAuth2UserInfo) {
+        Account account = new Account();
+
+        account.setProvider(AuthProviderEnum.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+        account.setProviderId(oAuth2UserInfo.getId());
+        account.setName(oAuth2UserInfo.getName());
+        account.setEmail(oAuth2UserInfo.getEmail());
+
+        try {
+            ConfirmToken confirmationToken = new ConfirmToken(account);
+
+            confirmTokenRepository.save(confirmationToken);
+
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(account.getEmail());
+            mailMessage.setSubject("Complete Registration!");
+            mailMessage.setFrom("linhdeptrai1029ii@gmail.com");
+            mailMessage.setText("To confirm your account, please click here : "
+                    +"http://localhost:8082/confirm-account?token="+confirmationToken.getConfirmationToken());
+
+            emailService.sendEmail(mailMessage);
+        } catch (Exception ex) {
+            System.out.println("Email send has an error");
+        }
+        return accountRepository.save(account);
     }
 
     @Transactional
@@ -64,16 +106,6 @@ public class OAuth2ServiceImpl extends DefaultOAuth2UserService {
         }
 
         return UserDetailsPrincipal.create(account, oAuth2User.getAttributes());
-    }
-
-    private Account registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2Details oAuth2UserInfo) {
-        Account account = new Account();
-
-        account.setProvider(AuthProviderEnum.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        account.setProviderId(oAuth2UserInfo.getId());
-        account.setName(oAuth2UserInfo.getName());
-        account.setEmail(oAuth2UserInfo.getEmail());
-        return accountRepository.save(account);
     }
 
     private Account updateExistingUser(Account existingUser, OAuth2Details oAuth2UserInfo) {

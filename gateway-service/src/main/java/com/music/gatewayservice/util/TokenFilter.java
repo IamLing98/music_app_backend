@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -54,6 +55,7 @@ public class TokenFilter extends ZuulFilter {
     }
 
     public boolean validateToken(String authToken) {
+        System.out.println("token sc:" + tokenSecret);
         try {
             Jwts.parser().setSigningKey(tokenSecret).parseClaimsJws(authToken);
             return true;
@@ -72,12 +74,18 @@ public class TokenFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        String token = getTokenFromRequest(request);
-        if (validateToken(token)) {
-
-        } else throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token is not valid");
-
-        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
+//        String token = getTokenFromRequest(request);
+//        System.out.println("Token:" + token);
+//        if (validateToken(token)) {
+//
+//        } else {
+//            ctx.setSendZuulResponse(false);
+//            ctx.setResponseStatusCode(401);
+//            ResponseEntity<?> responseEntity = new ResponseEntity<>( "Token not valid",HttpStatus.UNAUTHORIZED);
+//            ctx.setResponseBody(responseEntity.getBody().toString());
+//        }
+//
+//        log.info(String.format("%s request to %s", request.getMethod(), request.getRequestURL().toString()));
 
         return null;
     }

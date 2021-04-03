@@ -1,12 +1,12 @@
 package com.music.backend.controller;
 
+import com.music.backend.base.userdetails.AuthProviderEnum;
 import com.music.backend.dto.ApiResponse;
 import com.music.backend.dto.AuthResponse;
 import com.music.backend.dto.LoginRequest;
 import com.music.backend.dto.SignUpRequest;
 import com.music.backend.model.Account;
 import com.music.backend.repository.AccountRepository;
-import com.music.backend.base.userdetails.AuthProviderEnum;
 import com.music.backend.util.TokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

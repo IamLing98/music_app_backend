@@ -1,16 +1,12 @@
 package com.music.backend.util;
 
 import com.music.backend.base.userdetails.UserDetailsPrincipal;
-import com.nimbusds.jose.jwk.JWKException;
 import io.jsonwebtoken.*;
-import org.bouncycastle.jcajce.BCFKSLoadStoreParameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import java.security.SignatureException;
 import java.util.Date;
 
 @Component
